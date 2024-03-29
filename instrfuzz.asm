@@ -52,7 +52,25 @@ fuzz:
     mov dx, ax
     call print_hex
 
-    mov [exec_context+5], dx
+    mov [exec_context+6], dx
+    ; get second random value
+    call get_random
+
+    ; move second random value into cx.
+    mov cx, ax
+
+    ; get third random value
+    call get_random
+
+    ; multiply second and third random values to 
+    ; redistribute operand ranges.
+    mul cx
+
+    mov [exec_context+4], ax
+
+    mov dx, ax
+    call print_hex
+
     jmp exec_context
 
 exec_context:
@@ -60,8 +78,10 @@ exec_context:
     nop
     nop
     nop
-    nop
-    nop
+    nop ; this and the next 3 byte are overwritten
+    nop ; overwritten
+    nop ; overwritten
+    nop ; overwritten
     nop
     nop
     nop
@@ -117,7 +137,7 @@ print_string_end:
 
 print_hex:
     pusha
-    mov si, hex_str + 2
+    mov si, hex_str
     mov cx, 0
 
 next_character:
@@ -148,13 +168,15 @@ add_7:
     jmp add_character_hex
 
 hex_str:
-    db '0x0000', 0x0
+    db '0000', 0x0
 
 banner_str:
     db "Instructionfuzz By Nick Starke (https://github.com/nstarke)", 0xa, 0xd, 0xa
 
 insn_str:
-    db "INSN:", 0x0
+    db "INSN:0x", 0x0
+
+
 
 
 times 510-($-$$) db 0
