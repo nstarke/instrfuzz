@@ -13,7 +13,6 @@ do
 		echo 'Abnormal Signal Detected!'
 		OUTDATE=$(date + '%Y%m%d%H%M%S')
 		echo $OUTPUT > instrfuzz-$OUTDATE.log
-		exit 0
 	fi
 	echo $OUTPUT
 done
