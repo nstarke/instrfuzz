@@ -32,11 +32,17 @@ if ! command -v "${QEMU}" &> /dev/null; then
 	exit 1
 fi
 
+ACCELERATION=""
+
+if [[ $(cat /proc/cpuinfo | grep -i intel) ]]; then
+	ACCELERATION="-accel kvm"
+fi
+
 while :
 do
 	OUTDATE=$(date +'%Y%m%d%H%M%S')
 	START=$(date +'%s')
-	OUTPUT=$(timeout --foreground ${TIMEOUT} "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic > "/tmp/${OUTDATE}.tmp" 2> /dev/null)
+	OUTPUT=$(timeout --foreground ${TIMEOUT} "${QEMU}" -boot a -fda instrfuzz.img ${ACCELERATION} -nographic > "/tmp/${OUTDATE}.tmp" 2> /dev/null)
 	QEMU_SIG="$?"
 	END=$(date +'%s')
 	LEN=$((END-START))
