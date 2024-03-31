@@ -49,9 +49,11 @@ do
 	echo "Timeout $TIMEOUT | len: $LEN"
 	if [ "$QEMU_SIG" -ne 124 ] || [ $TIMEOUT -gt "$LEN" ]; then
 		echo 'Abnormal Signal Detected!'
-		cp "/tmp/${OUTDATE}.tmp" "instrfuzz-${OUTDATE}.log"
+		mv "/tmp/${OUTDATE}.tmp" "instrfuzz-${OUTDATE}.log"
 	else 
 		echo "Ending Iteration:  $(date)"
 		echo "Execution time in seconds: ${LEN}"
 	fi
+
+	rm "/tmp/${OUTDATE}.tmp"
 done
