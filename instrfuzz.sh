@@ -18,6 +18,13 @@ echo "Assembled fuzzing core"
 
 echo "Beginning test iterations"
 
+
+if [ -z "${TIMEOUT}" ]; then
+	TIMEOUT=60
+fi
+
+echo "Iteration Execution time should be less than ${TIMEOUT} seconds"
+
 QEMU="qemu-system-i386"
 
 if ! command -v "${QEMU}" &> /dev/null; then
@@ -27,11 +34,17 @@ fi
 
 while :
 do
-	OUTPUT=$(timeout --foreground 60 "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic 2>/dev/null)
-	if [ "$?" -ne 124 ]; then
+	OUTDATE=$(date +'%Y%m%d%H%M%S')
+	START=$(date +'%s')
+	OUTPUT=$(timeout --foreground ${TIMEOUT} "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic > /tmp/${OUTDATE}.tmp 2>/dev/null)
+	QEMU_SIG="$?"
+	END=$(date +'%s')
+	LEN=$((END-START))
+	if [ "$QEMU_SIG" -ne 124 ] || [ "${TIMEOUT}" -gt "$LEN" ]; then
 		echo 'Abnormal Signal Detected!'
-		OUTDATE=$(date +'%Y%m%d%H%M%S')
-		echo "${OUTPUT}" > "instrfuzz-${OUTDATE}.log"
+		cp "/tmp/${OUTDATE}.tmp" "instrfuzz-${OUTDATE}.log"
+	else 
+		echo "Ending Iteration:  $(date)"
+		echo "Execution time in seconds: ${LEN}"
 	fi
-	echo "${OUTPUT}"
 done
