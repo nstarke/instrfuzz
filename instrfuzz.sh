@@ -27,7 +27,7 @@ fi
 
 while :
 do
-	OUTPUT=$(timeout --foreground 0.25 "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic 2>/dev/null)
+	OUTPUT=$(timeout --foreground 60 "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic 2>/dev/null)
 	if [ "$?" -ne 124 ]; then
 		echo 'Abnormal Signal Detected!'
 		OUTDATE=$(date +'%Y%m%d%H%M%S')

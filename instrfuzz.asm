@@ -85,7 +85,10 @@ exec_context:
     nop
     nop
     popa
-    jmp fuzz
+    jmp reboot
+
+reboot:
+    int 0x19
 
 ; relies on BIOS Services timer to create
 ; 'random' values returned in ax.
@@ -174,9 +177,6 @@ banner_str:
 
 insn_str:
     db "INSN:0x", 0x0
-
-
-
 
 times 510-($-$$) db 0
 db 0x55,0xaa 
