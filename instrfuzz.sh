@@ -21,6 +21,8 @@ echo "Beginning test iterations"
 
 if [ -z "${TIMEOUT}" ]; then
 	TIMEOUT=60
+else
+	TIMEOUT=$(printf -v int "%d" "${TIMEOUT}")
 fi
 
 echo "Iteration Execution time should be less than ${TIMEOUT} seconds"
@@ -36,11 +38,12 @@ while :
 do
 	OUTDATE=$(date +'%Y%m%d%H%M%S')
 	START=$(date +'%s')
-	OUTPUT=$(timeout --foreground ${TIMEOUT} "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic > /tmp/${OUTDATE}.tmp 2>/dev/null)
+	OUTPUT=$(timeout --foreground ${TIMEOUT} "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic > "/tmp/${OUTDATE}.tmp" 2> /dev/null)
 	QEMU_SIG="$?"
 	END=$(date +'%s')
 	LEN=$((END-START))
-	if [ "$QEMU_SIG" -ne 124 ] || [ "${TIMEOUT}" -gt "$LEN" ]; then
+	echo "Timeout $TIMEOUT | len: $LEN"
+	if [ "$QEMU_SIG" -ne 124 ] || [ $TIMEOUT -gt "$LEN" ]; then
 		echo 'Abnormal Signal Detected!'
 		cp "/tmp/${OUTDATE}.tmp" "instrfuzz-${OUTDATE}.log"
 	else 
