@@ -46,7 +46,7 @@ do
 	QEMU_SIG="$?"
 	END=$(date +'%s')
 	LEN=$((END-START))
-	echo "Timeout $TIMEOUT | len: $LEN"
+
 	if [ "$QEMU_SIG" -ne 124 ] || [ $TIMEOUT -gt "$LEN" ]; then
 		echo 'Abnormal Signal Detected!'
 		mv "/tmp/${OUTDATE}.tmp" "instrfuzz-${OUTDATE}.log"
