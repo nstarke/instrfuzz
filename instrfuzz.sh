@@ -1,14 +1,33 @@
 #!/bin/bash
 
 echo "Assembling fuzzing core"
+
+if ! command -v "nasm" &> /dev/null; then
+	echo "nasm is not in \$PATH"
+	exit 1
+fi
+
 nasm -f bin -o instrfuzz.img instrfuzz.asm
+
+if [ ! -f instrfuzz.img ]; then
+	echo "instrfuzz.img does not exist"
+	exit 1
+fi
+
 echo "Assembled fuzzing core"
 
-echo "Beginning Test Iterations"
+echo "Beginning test iterations"
+
+QEMU="qemu-system-i386"
+
+if ! command -v "${QEMU}" &> /dev/null; then
+	echo "${QEMU} is not in \$PATH"
+	exit 1
+fi
 
 while :
 do
-	OUTPUT=$(timeout --foreground 0.25 qemu-system-i386 -boot a -fda instrfuzz.img -accel kvm -nographic 2>/dev/null)
+	OUTPUT=$(timeout --foreground 0.25 "${QEMU}" -boot a -fda instrfuzz.img -accel kvm -nographic 2>/dev/null)
 	if [ "$?" -ne 124 ]; then
 		echo 'Abnormal Signal Detected!'
 		OUTDATE=$(date +'%Y%m%d%H%M%S')
