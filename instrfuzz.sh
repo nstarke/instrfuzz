@@ -21,8 +21,6 @@ echo "Beginning test iterations"
 
 if [ -z "${TIMEOUT}" ]; then
 	TIMEOUT=60
-else
-	TIMEOUT=$(printf -v int "%d" "${TIMEOUT}")
 fi
 
 echo "Iteration Execution time should be less than ${TIMEOUT} seconds"
