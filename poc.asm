@@ -21,11 +21,12 @@ start:
     mov bx, before_str
     call print_string
 
-    mov ax, 0xc7a7
-    mov [exec_context+3], ax
-    mov ax, 0xf541
+    mov ax, 0x$NBL1
     mov [exec_context+1], ax
-   
+    
+    mov ax, 0x$NBL2
+    mov [exec_context+3], ax
+  
     jmp exec_context
 
 after:
