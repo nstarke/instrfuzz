@@ -31,4 +31,9 @@ Clone the repository and then run `bash instrfuzz.sh` in the newly cloned reposi
 
 ## Bugs?
 
-TBD
+The following CPU instructions result in anoymalous behavior:
+
+```
+0xf541c7a7
+0x0c1edff7
+```
