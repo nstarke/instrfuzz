@@ -1,11 +1,3 @@
-; BOOTFUZZ
-; 
-; Copyright (c) 2024 Nicholas Starke
-; https://github.com/nstarke/bootfuzz
-;
-; assemble with `nasm -f bin -o bootfuzz.img bootfuzz.asm`
-; run in qemu: `qemu-system-i386 -fda bootfuzz.img -nographic -accel kvm`
-
 [bits 16]
 org 0x7c00
 
