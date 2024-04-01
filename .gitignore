@@ -1,2 +1,3 @@
-instrfuzz.img
+*.img
 instrfuzz-*.log
+.gdb_history
