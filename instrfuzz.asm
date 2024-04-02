@@ -48,10 +48,9 @@ fuzz:
     ; put random value in ax
     call get_random
     
-    mov dx, ax
-    call print_hex
+    mov bx, ax
 
-    mov [exec_context+6], dx
+    mov [exec_context+6], ax
     ; get second random value
     call get_random
 
@@ -68,6 +67,9 @@ fuzz:
     mov [exec_context+4], ax
 
     mov dx, ax
+    call print_hex
+
+    mov dx, bx
     call print_hex
 
     jmp exec_context
