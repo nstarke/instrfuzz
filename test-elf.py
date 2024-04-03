@@ -22,14 +22,14 @@ def chmod_plus_x(path):
     )
     
 def main():
-    parser = argparse.ArgumentParser('Instrfuzz elf-test.py')
+    parser = argparse.ArgumentParser('Instrfuzz test-elf.py')
     parser.add_argument('instruction', help='The instruction to test')
 
     args = parser.parse_args()
     insn = bytearray.fromhex(args.__dict__["instruction"].replace('0x', ''))
-    subprocess.run("nasm -f elf32 -o elf-test.o elf-test.asm", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    subprocess.run("ld -m elf_i386 -o elf-test elf-test.o", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    with open("elf-test", "rb") as bin_file:
+    subprocess.run("nasm -f elf32 -o test-elf.o test-elf.asm", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    subprocess.run("ld -m elf_i386 -o test-elf test-elf.o", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    with open("test-elf", "rb") as bin_file:
         data = bin_file.read()
         data = bytearray(data)
         idx = data.find(b"\x90\x90\x90\x90")

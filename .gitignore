@@ -3,5 +3,5 @@
 instrfuzz-*.log
 .gdb_history
 *.test.asm
-elf-test
-elf-test.o
+test-elf
+test-elf.o
