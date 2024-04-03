@@ -18,6 +18,8 @@ cat poc.asm | sed "s/\$NBL1/$NIBBLE1/g" | sed "s/\$NBL2/$NIBBLE2/g" > "${OUTDATE
 nasm -f bin -o "${OUTDATE}.test.img" "${OUTDATE}.test.asm"
 
 echo "Booting QEMU to test instruction.  Press CTRL-A + X to break out of QEMU..."
-qemu-system-i386 -boot a -fda "{$OUTDATE}.test.img" -nographic
+timeout --foreground 1 qemu-system-i386 -boot a -fda "${OUTDATE}.test.img" -nographic
+echo -n "${NIBBLE1}${NIBBLE2}" | xxd -r -p > "/tmp/${OUTDATE}.test.txt"
 
+objdump -m i8086 -b binary -D -a "/tmp/${OUTDATE}.test.txt"
 echo "Created ${OUTDATE}.test.img and ${OUTDATE}.test.asm.  Do you want to keep these files?"

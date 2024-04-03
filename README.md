@@ -34,7 +34,7 @@ Clone the repository and then run `bash instrfuzz.sh` in the newly cloned reposi
 The following CPU instructions result in anoymalous behavior:
 
 ```
-0xf541c7a7
+0xf541c7a7 ; 0x909090C7 works too.  Something with the '0xc7' opcode.
 0x0c1edff7
 0x4FFC09F5
 0x03AEDFF7
