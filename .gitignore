@@ -1,4 +1,7 @@
 *.img
+*.elf
 instrfuzz-*.log
 .gdb_history
 *.test.asm
+elf-test
+elf-test.o
