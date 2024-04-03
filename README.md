@@ -37,5 +37,5 @@ The following CPU instructions result in anoymalous behavior:
 0xf541c7a7
 0x0c1edff7
 0x4FFC09F5
-0x3AEDFF7
+0x03AEDFF7
 ```
