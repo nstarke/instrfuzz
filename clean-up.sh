@@ -6,3 +6,4 @@ rm *.test.img
 rm *.img
 rm *.test.asm
 rm *.o
+rm .gdb_history
