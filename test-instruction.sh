@@ -22,4 +22,5 @@ timeout --foreground 1 qemu-system-i386 -boot a -fda "${OUTDATE}.test.img" -nogr
 echo -n "${NIBBLE1}${NIBBLE2}" | xxd -r -p > "/tmp/${OUTDATE}.test.txt"
 
 objdump -m i8086 -b binary -D -a "/tmp/${OUTDATE}.test.txt"
+rm "/tmp/${OUTDATE}.test.txt"
 echo "Created ${OUTDATE}.test.img and ${OUTDATE}.test.asm.  Do you want to keep these files?"
