@@ -38,4 +38,5 @@ The following CPU instructions result in anoymalous behavior:
 0x0c1edff7
 0x4FFC09F5
 0x03AEDFF7
+0x39F0F650 ; this one causes a segfault in QEMU
 ```
