@@ -40,3 +40,22 @@ The following CPU instructions result in anoymalous behavior:
 0x03AEDFF7
 0x39F0F650 ; this one causes a segfault in QEMU
 ```
+
+## Triaging
+
+There are two scripts that can be used to triage fuzzer results:
+
+* `test-instruction.sh $INSN`
+* `elf-test.py $INSN`
+
+`test-instruction.sh` will test the instruction as part of the MBR, which means no memory protections or operating system protections are in place
+
+* `elf-test.py $INSN` will test the instruction as part of a elf file linked with GLIBC.  I would never run this script as root :-)
+
+For example, try running this shell one-liner:
+
+```
+./`python3 elf-test.py 0x39F0F650`
+```
+
+This will create a .elf file and then execute that .elf file (the elf filename/path is printed to stdout after the sub shell command is run)
