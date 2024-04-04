@@ -6,7 +6,7 @@ if [ ${#INSN} -eq 8 ]; then
     NIBBLE1=${INSN:0:4}
     NIBBLE2=${INSN:4:8}
 elif [ ${#INSN} -eq 10 ]; then
-   NIBBLE1=${INSN:2:4}
+   NIBBLE1=${INSN:2:6}
    NIBBLE2=${INSN:6:10}
 fi
 
