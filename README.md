@@ -34,8 +34,8 @@ Clone the repository and then run `bash instrfuzz.sh` in the newly cloned reposi
 The following CPU instructions result in anoymalous behavior:
 
 ```
-0xf541c7a7 ; 0x909090C7 works too.  Something with the '0xc7' opcode.
-0x0c1edff7
+0xF541C7A7 ; 0x909090C7 works too.  Something with the '0xc7' opcode.
+0x0C1EDFF7
 0x4FFC09F5
 0x03AEDFF7
 0x39F0F650 ; this one causes a segfault in QEMU
@@ -48,11 +48,11 @@ The following CPU instructions result in anoymalous behavior:
 There are two scripts that can be used to triage fuzzer results:
 
 * `test-instruction.sh $INSN`
-* `elf-test.py $INSN`
+* `test-elf.py $INSN`
 
 `test-instruction.sh` will test the instruction as part of the MBR, which means no memory protections or operating system protections are in place
 
-* `elf-test.py $INSN` will test the instruction as part of a elf file linked with GLIBC.  I would never run this script as root :-)
+* `test-elf.py $INSN` will test the instruction as part of a elf file linked with GLIBC.  I would never run this script as root :-)
 
 For example, try running this shell one-liner:
 
