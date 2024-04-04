@@ -172,7 +172,7 @@ add_7:
     jmp add_character_hex
 
 hex_str:
-    db '0000', 0x0
+    db "0000", 0x0
 
 banner_str:
     db "Instructionfuzz By Nick Starke (https://github.com/nstarke)", 0xa, 0xd, 0xa
