@@ -32,10 +32,10 @@ if ! command -v "${QEMU}" &> /dev/null; then
 	exit 1
 fi
 
-ACCELERATION=""
-
-if [[ $(cat /proc/cpuinfo | grep -i intel) ]]; then
-	ACCELERATION="-accel kvm"
+if [ ! -z "$ACCELERATION" ]; then
+	echo "Using -ACCELERATION: ${ACCELERATION}"
+else
+	ACCELERATION=""
 fi
 
 while :
