@@ -33,10 +33,10 @@ def main():
         data = bin_file.read()
         data = bytearray(data)
         idx = data.find(b"\x90\x90\x90\x90")
-        data[idx + 3] = insn[0]
-        data[idx + 2] = insn[1]
-        data[idx + 1] = insn[2]
-        data[idx] = insn[3]
+        data[idx + 3] = insn[3]
+        data[idx + 2] = insn[2]
+        data[idx + 1] = insn[1]
+        data[idx] = insn[0]
 
         today = datetime.datetime.now()
         today = today.strftime("%Y%m%d%H%M%S")
