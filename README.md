@@ -41,6 +41,7 @@ The following CPU instructions result in anoymalous behavior:
 0x39F0F650 ; this one causes a segfault in QEMU
 0xA7F03DF0 ; crashes qemu / illegal instruction coredump in elf
 0xEA413CA0 ; not even sure what is going on with this.
+0x2BD93390
 ```
 
 ## Triaging
